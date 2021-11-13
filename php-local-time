@@ -1,0 +1,25 @@
+Use Cases of Getting the Browser's Timezone
+Getting the user timezone can help your 
+application in showing date and time relative to the user's browser.
+This means that a user in New York will
+see time relative to America/New_York timezone,
+while a user in India will see time according to the Asia/Kolkata timezone.
+
+Detecting the User Timezone Name
+Detecting the user timezoone is a two-step process:
+
+Get the timezone offset of the browser with Javascript, and sent it to PHP (via AJAX or something).
+Convert the timezone offset to a valid TZ Database timezone name such as America/New_York, Asia/Kolkata.
+
+// This is just an example. In application this will come from Javascript (via an AJAX or something)
+$timezone_offset_minutes = 330;  // $_GET['timezone_offset_minutes']
+
+// Convert minutes to seconds
+$timezone_name = timezone_name_from_abbr("", $timezone_offset_minutes*60, false);
+
+// Asia/Kolkata
+echo $timezone_name;
+date_default_timezone_set($timezone_name);
+
+or
+   // date_default_timezone_set("Asia/Kolkata");
